@@ -28,6 +28,9 @@ export class App extends Component {
     e.preventDefault();
     const form = e.currentTarget;
     const input = form.elements.input.value;
+    if (input.trim() === '') {
+      return;
+    }
     this.setState({ images: [], search: input, page: 1 });
     form.reset();
   };
@@ -45,13 +48,8 @@ export class App extends Component {
   
   loadMore = () => {
     this.setState({ isLoading: true });
-    try {
-      this.setState(({ page }) => ({ page: page + 1 }));
-    } catch (error) {
-      console.log('Error occurred')
-    } finally {
-      this.setState({ isLoading: false });
-    };
+    this.setState(({ page }) => ({ page: page + 1 }));
+    
   };
   //  описуємо функцію для додавання зображень (кнопка loadMore)
     
@@ -105,7 +103,7 @@ export class App extends Component {
     return (
       <div className={css.wrapper}>
         {isModalOpen ? (
-          <Modal clickImage={largeImage} handleClose={this.closeModal} />
+          <Modal clickImage={largeImage}  />
         ) : null}
         <Searchbar handleSubmit={this.handleSubmit} />
         {isLoading && (page <= 1) ? <Loader /> : null}
