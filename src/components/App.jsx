@@ -24,17 +24,12 @@ const INITIAL_STATE = {
 export class App extends Component {
   state = { ...INITIAL_STATE };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const input = form.elements.input.value;
-    if (input.trim() === '') {
-      return;
-    }
-    this.setState({ images: [], search: input, page: 1 });
-    form.reset();
+  handleSubmit = query => {
+    
+    this.setState({ images: [], search: query, page: 1 });
+    
   };
-  // описуємо функцію для пошука в (Submit) (змінює стан та чистить після відправки форми (reset))
+  // описуємо функцію для пошука в (Submit) (змінює стан, в параметри передаємо (пустий масив, те, що ввів юзер та початковий номер сторінки) )
 
   
   handleEnlargeImage = id => {
@@ -57,12 +52,7 @@ export class App extends Component {
   this.setState({ isModalOpen: false });
   };
   // описуємо функцію закриття модального вікна
-
-  componentDidMount() {
-    this.setState({ images: [], page: 1 });
-  };
-  // описуємо життєвий цикл componentDidMount (монтування)
-  
+    
   async componentDidUpdate(_, prevState) {
     if (prevState.page !== this.state.page || prevState.search !== this.state.search) {
       this.setState({ isLoading: true });
