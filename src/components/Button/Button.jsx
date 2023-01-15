@@ -12,4 +12,3 @@ export const Button = ({ handleClick }) => {
 Button.propTypes = {
     handleClick: propTypes.func.isRequired
 };
-// Описуємо кнопку Load more, яка буде доповнювати зображення
